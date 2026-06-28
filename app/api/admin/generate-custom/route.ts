@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
-  const { sujet, categorieSlugHint, useWebSearch, imageUrl, imageClean } = await req.json();
+  const { sujet, useWebSearch, imageUrl } = await req.json();
 
   // En mode photo, le sujet est optionnel. En mode texte, il est requis.
   if (!imageUrl && !sujet?.trim()) {
@@ -101,8 +101,6 @@ export async function POST(req: Request) {
   "titre": "Titre accrocheur SEO (max 80 chars)",
   "chapo": "Chapô de 2 phrases max, résumé percutant",
   "contenu": "<p>Corps de l'article en HTML...</p><h2>Sous-titre</h2><p>...</p>",
-  "categorieSlug": "${categorieSlugHint || "actu|sport|economie|politique|success-stories|people|sante-beaute|fait-divers"}",
-  "sousCategorie": "Sous-catégorie précise ou null",
   "tags": ["tag1", "tag2", "tag3"],
   "metaTitle": "Meta titre SEO (max 60 chars)",
   "metaDescription": "Meta description (max 155 chars)",
@@ -116,15 +114,18 @@ export async function POST(req: Request) {
 
     if (imageUrl) {
       // Mode PHOTO — Claude analyse l'image via vision
-      const photoPrompt = `Tu es un journaliste professionnel pour le média Réalitte (France).
+      const photoPrompt = `Tu es un journaliste de caricature politique pour le média DemoCrachi (France).
 Nous sommes le ${today}.
+
+DemoCrachi démonte l'hypocrisie, la corruption et la manipulation du système politique et médiatique français.
+Le ton est engagé, percutant, accessible au grand public. On dit la vérité sans détour.
 
 Analyse cette photo avec attention : identifie les personnes, le lieu, le contexte, l'événement ou le sujet représenté.${sujet ? `\nIndice supplémentaire donné par l'admin : "${sujet}"` : ""}
 
-Ensuite rédige un article complet de 400 à 600 mots qui correspond exactement au contenu de cette photo.
+Ensuite rédige un article de caricature politique de 400 à 600 mots qui correspond exactement au contenu de cette photo.
 
 Règles :
-- Contenu factuel, ton journalistique engagé
+- Ton satirique, engagé, qui dénonce le système
 - HTML simple uniquement (p, h2, h3, blockquote)
 - Langue française impeccable
 - Réponds UNIQUEMENT en JSON valide, sans markdown ni backticks
@@ -160,12 +161,16 @@ ${jsonSchema}`;
         ? `\n\nVoici des informations récentes trouvées sur internet. Utilise ces faits réels :\n\n${webContext}\n\nIMPORTANT: Utilise ces informations réelles, ne les invente pas.`
         : "";
 
-      const prompt = `Tu es un journaliste professionnel pour le média Réalitte (France).
-Nous sommes le ${today}. Base-toi sur cette date pour tous les calculs de temps.
-Rédige un article complet et original sur le sujet suivant : "${sujet}"${contextBlock}
+      const prompt = `Tu es un journaliste de caricature politique pour le média DemoCrachi (France).
+Nous sommes le ${today}.
+
+DemoCrachi démonte l'hypocrisie, la corruption et la manipulation du système politique et médiatique français.
+Le ton est engagé, satirique, percutant, accessible au grand public. On dit la vérité sans détour.
+
+Rédige un article de caricature politique sur le sujet suivant : "${sujet}"${contextBlock}
 
 Règles :
-- Contenu factuel, bien documenté, ton journalistique engagé
+- Ton satirique et engagé qui dénonce le système
 - Longueur : 400 à 600 mots dans le corps de l'article
 - HTML simple uniquement (p, h2, h3, blockquote)
 - Langue française impeccable
@@ -185,11 +190,9 @@ ${jsonSchema}`;
     const jsonStr = raw.startsWith("{") ? raw : raw.slice(raw.indexOf("{"), raw.lastIndexOf("}") + 1);
     const parsed = JSON.parse(jsonStr);
 
-    const categorie = await prisma.categorie.findFirst({
-      where: { slug: parsed.categorieSlug },
-    });
+    const categorie = await prisma.categorie.findFirst({ orderBy: { ordre: "asc" } });
     if (!categorie) {
-      return NextResponse.json({ error: `Catégorie "${parsed.categorieSlug}" introuvable` }, { status: 400 });
+      return NextResponse.json({ error: "Aucune catégorie trouvée dans la base de données" }, { status: 400 });
     }
 
     const baseSlug = slugify(parsed.titre);
@@ -225,15 +228,15 @@ ${jsonSchema}`;
         categorieId: categorie.id,
         sousCategorie: parsed.sousCategorie || null,
         tags: parsed.tags || [],
-        sourceUrl: "https://www.realitte.com",
-        sourceNom: "Réalitte",
+        sourceUrl: "https://www.democrachi.com",
+        sourceNom: "DemoCrachi",
         statut: "PENDING",
         metaTitle: parsed.metaTitle || null,
         metaDescription: parsed.metaDescription || null,
         tempsLecture: Math.max(1, Math.ceil(wordCount / 200)),
         imageUrl: finalImageUrl,
         imageAlt: finalImageAlt,
-        imageClean: imageClean === true,
+        imageClean: false,
       },
     });
 

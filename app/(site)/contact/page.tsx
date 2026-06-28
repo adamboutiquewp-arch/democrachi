@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contactez l'équipe Réalitte pour toute question ou collaboration.",
+  description: "Contactez l'équipe DemoCrachi pour toute question ou collaboration.",
 };
 
 export default function ContactPage() {
@@ -27,10 +27,10 @@ export default function ContactPage() {
             Suggestion d&apos;article, correction, partenariat éditorial.
           </p>
           <a
-            href="mailto:redaction@realitte.com"
+            href="mailto:redaction@democrachi.com"
             className="text-[#E53935] text-[14px] font-medium hover:underline"
           >
-            redaction@realitte.com
+            redaction@democrachi.com
           </a>
         </div>
 
@@ -43,10 +43,10 @@ export default function ContactPage() {
             Espaces publicitaires, collaborations, sponsors.
           </p>
           <a
-            href="mailto:contact@realitte.com"
+            href="mailto:contact@democrachi.com"
             className="text-[#E53935] text-[14px] font-medium hover:underline"
           >
-            contact@realitte.com
+            contact@democrachi.com
           </a>
         </div>
 
@@ -59,10 +59,10 @@ export default function ContactPage() {
             Droit d&apos;accès, rectification, suppression (RGPD).
           </p>
           <a
-            href="mailto:contact@realitte.com"
+            href="mailto:contact@democrachi.com"
             className="text-[#E53935] text-[14px] font-medium hover:underline"
           >
-            contact@realitte.com
+            contact@democrachi.com
           </a>
         </div>
 
@@ -75,10 +75,10 @@ export default function ContactPage() {
             Toute autre demande.
           </p>
           <a
-            href="mailto:contact@realitte.com"
+            href="mailto:contact@democrachi.com"
             className="text-[#E53935] text-[14px] font-medium hover:underline"
           >
-            contact@realitte.com
+            contact@democrachi.com
           </a>
         </div>
 
@@ -86,7 +86,7 @@ export default function ContactPage() {
 
       <div className="border-t border-[#E0E0E0] pt-8">
         <p className="text-[13px] text-[#9E9E9E] leading-relaxed">
-          <strong className="text-[#111]">Réalitte</strong> est un média d&apos;information en ligne indépendant.<br />
+          <strong className="text-[#111]">DemoCrachi</strong> est un média d&apos;information en ligne indépendant.<br />
           Nous nous engageons à répondre à toutes les demandes dans un délai de 48 heures ouvrées.
         </p>
       </div>

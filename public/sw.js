@@ -1,4 +1,4 @@
-const CACHE = "realitte-v1";
+const CACHE = "democrachi-v1";
 const OFFLINE_URL = "/";
 
 self.addEventListener("install", (event) => {

@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "CRON_SECRET manquant" }, { status: 500 });
   }
 
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com";
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com";
   const headers = { "x-cron-secret": secret };
 
   try {

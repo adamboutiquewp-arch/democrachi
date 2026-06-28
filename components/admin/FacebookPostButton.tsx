@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const SITE_URL = "https://realitte.com";
+const SITE_URL = "https://democrachi.com";
 
 interface Article {
   id: string;

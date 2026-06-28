@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const PROFIL_KEY = "realitte_profil";
+const PROFIL_KEY = "democrachi_profil";
 
 interface Profil {
   prenom: string;
@@ -44,14 +44,14 @@ export default function ProfilClient() {
     localStorage.setItem(PROFIL_KEY, JSON.stringify(data));
     setProfil(data);
     // Déclenche la mise à jour du BottomNav
-    window.dispatchEvent(new Event("realitte-profil-updated"));
+    window.dispatchEvent(new Event("democrachi-profil-updated"));
     setSaving(false);
   };
 
   const supprimerProfil = () => {
     localStorage.removeItem(PROFIL_KEY);
     setProfil(null);
-    window.dispatchEvent(new Event("realitte-profil-updated"));
+    window.dispatchEvent(new Event("democrachi-profil-updated"));
   };
 
   if (!loaded) {

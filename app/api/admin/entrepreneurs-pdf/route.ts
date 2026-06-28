@@ -18,7 +18,7 @@ export async function GET() {
 
   // ── En-tête ──────────────────────────────────────────────
   page.drawRectangle({ x: 0, y: height - 80, width, height: 80, color: noir });
-  page.drawText("Réalitte.", { x: 40, y: height - 52, size: 26, font: fontBold, color: rgb(1,1,1) });
+  page.drawText("DemoCrachi.", { x: 40, y: height - 52, size: 26, font: fontBold, color: rgb(1,1,1) });
   page.drawText(".", { x: 108, y: height - 52, size: 26, font: fontBold, color: rouge });
   page.drawText("DOSSIER — ENTREPRENEUR DE LA SEMAINE", {
     x: 40, y: height - 68, size: 8, font: fontNormal, color: rgb(0.6,0.6,0.6),
@@ -30,8 +30,8 @@ export async function GET() {
   page.drawText("Comment participer ?", { x: 40, y, size: 14, font: fontBold, color: noir });
   y -= 20;
   const introLines = [
-    "Chaque semaine, Réalitte met en lumière un entrepreneur et son entreprise.",
-    "Remplissez ce dossier et envoyez-le à : contact@realitte.com",
+    "Chaque semaine, DemoCrachi met en lumière un entrepreneur et son entreprise.",
+    "Remplissez ce dossier et envoyez-le à : contact@democrachi.com",
   ];
   for (const line of introLines) {
     page.drawText(line, { x: 40, y, size: 9, font: fontNormal, color: gris });
@@ -79,7 +79,7 @@ export async function GET() {
   y -= 10;
   // ── Footer ────────────────────────────────────────────────
   page.drawRectangle({ x: 0, y: 0, width, height: 50, color: noir });
-  page.drawText("Réalitte — contact@realitte.com — www.realitte.com", {
+  page.drawText("DemoCrachi — contact@democrachi.com — www.democrachi.com", {
     x: 40, y: 18, size: 8, font: fontNormal, color: rgb(0.5,0.5,0.5),
   });
   page.drawText("* Champs obligatoires", {
@@ -92,7 +92,7 @@ export async function GET() {
   return new NextResponse(buffer, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="realitte-dossier-entrepreneur.pdf"',
+      "Content-Disposition": 'attachment; filename="democrachi-dossier-entrepreneur.pdf"',
     },
   });
 }

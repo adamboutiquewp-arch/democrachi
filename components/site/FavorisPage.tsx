@@ -16,7 +16,7 @@ interface SavedArticle {
   savedAt: number;
 }
 
-export const FAVORIS_KEY = "realitte_favoris";
+export const FAVORIS_KEY = "democrachi_favoris";
 
 export function getFavoris(): SavedArticle[] {
   try {

@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Type invalide" }, { status: 400 });
   }
 
-  const baseUrl = process.env.NEXTAUTH_URL || "https://www.realitte.com";
+  const baseUrl = process.env.NEXTAUTH_URL || "https://www.democrachi.com";
   const secret = process.env.CRON_SECRET || "";
 
   const url = new URL(`${baseUrl}/api/pipeline/${type}`);

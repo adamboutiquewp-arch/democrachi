@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
             className="text-3xl font-bold text-white"
             style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
           >
-            Réalitte<span className="text-[#E53935]">.</span>
+            DemoCrachi<span className="text-[#E53935]">.</span>
           </h1>
           <p className="text-[#9E9E9E] text-sm mt-1 tracking-widest uppercase">
             Back-office
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               className="w-full px-4 py-3 border border-[#E0E0E0] text-[14px] outline-none focus:border-black transition-colors"
-              placeholder="admin@realitte.com"
+              placeholder="admin@democrachi.com"
             />
           </div>
 
@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-center text-[11px] text-[#424242] mt-6">
-          Accès réservé aux membres de l&apos;équipe Réalitte
+          Accès réservé aux membres de l&apos;équipe DemoCrachi
         </p>
       </div>
     </div>

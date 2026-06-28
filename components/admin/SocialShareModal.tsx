@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const SITE_URL = "https://realitte.com";
+const SITE_URL = "https://democrachi.com";
 
 interface Article {
   id: string;
@@ -177,7 +177,7 @@ export default function SocialShareModal({ article, variant = "list" }: Props) {
                     <p className="text-[11px] text-[#999] mb-1">Photo de l&apos;article</p>
                     <a
                       href={`/api/admin/download-image?url=${encodeURIComponent(article.imageUrl)}`}
-                      download="realitte-photo.jpg"
+                      download="democrachi-photo.jpg"
                       className="text-[12px] font-bold text-[#111] hover:text-[#E53935] transition-colors"
                     >
                       ⬇ Télécharger la photo

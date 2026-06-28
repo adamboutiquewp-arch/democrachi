@@ -28,13 +28,13 @@ async function getStats() {
       where: { statut: "PUBLISHED" },
       orderBy: { vues: "desc" },
       take: 5,
-      include: { categorie: { select: { nom: true, couleur: true } } },
+      select: { id: true, titre: true, vues: true },
     }),
     prisma.article.findMany({
       where: { statut: "PENDING" },
       orderBy: { dateCreation: "desc" },
       take: 5,
-      include: { categorie: { select: { nom: true, couleur: true } } },
+      select: { id: true, titre: true, dateCreation: true },
     }),
     prisma.avis.count({ where: { statut: "PENDING" } }),
     prisma.pipelineLog.findFirst({ orderBy: { dateCreation: "desc" } }),
@@ -87,8 +87,15 @@ export default async function AdminDashboard() {
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-[22px] font-black text-[#111]">Tableau de bord</h1>
-          <p className="text-[13px] text-[#999] mt-0.5">Vue d&apos;ensemble de Réalitte</p>
+          <p className="text-[13px] text-[#999] mt-0.5">DemoCrachi — Lun / Mer / Ven / Dim</p>
         </div>
+        <Link
+          href="/admin/generer"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#E53935] text-white text-[12px] font-black tracking-wider uppercase rounded-lg hover:bg-[#c62828] transition-colors"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Créer un article
+        </Link>
       </div>
 
       {/* KPI Cards */}
@@ -154,15 +161,6 @@ export default async function AdminDashboard() {
             <ul className="divide-y divide-[#F8F8F8]">
               {stats.dernieresPending.map((a) => (
                 <li key={a.id} className="px-6 py-3.5 flex items-center gap-3">
-                  <span
-                    className="flex-shrink-0 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded"
-                    style={{
-                      color: a.categorie.couleur,
-                      backgroundColor: `${a.categorie.couleur}18`,
-                    }}
-                  >
-                    {a.categorie.nom}
-                  </span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-medium text-[#111] line-clamp-1">
                       {a.titre}
@@ -202,12 +200,6 @@ export default async function AdminDashboard() {
                     <p className="text-[13px] font-medium text-[#111] line-clamp-1">
                       {a.titre}
                     </p>
-                    <span
-                      className="text-[10px] font-bold tracking-wider uppercase"
-                      style={{ color: a.categorie.couleur }}
-                    >
-                      {a.categorie.nom}
-                    </span>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0 text-[12px] font-bold text-[#999]">
                     <svg className="w-3.5 h-3.5 text-[#ccc]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -223,7 +215,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Pipeline + Actions rapides */}
+      {/* Pipeline + Raccourcis */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <PipelineCard lastLog={stats.lastLog} />
 
@@ -233,10 +225,10 @@ export default async function AdminDashboard() {
           </div>
           <div className="p-4 grid grid-cols-2 gap-3">
             {[
-              { href: "/admin/articles?statut=PENDING", value: stats.totalPending,  label: "En attente",    color: "#E53935" },
-              { href: "/admin/commentaires",            value: stats.totalAvisPending, label: "Commentaires", color: "#C9A84C" },
-              { href: "/admin/articles",                value: stats.totalPublies,  label: "Publiés",       color: "#111" },
-              { href: "/admin/newsletter",              value: stats.totalAbonnes,  label: "Abonnés",       color: "#3B82F6" },
+              { href: "/admin/articles?statut=PENDING", value: stats.totalPending,     label: "En attente",    color: "#E53935" },
+              { href: "/admin/commentaires",            value: stats.totalAvisPending,  label: "Commentaires",  color: "#C9A84C" },
+              { href: "/admin/articles",                value: stats.totalPublies,      label: "Publiés",       color: "#111" },
+              { href: "/admin/newsletter",              value: stats.totalAbonnes,      label: "Abonnés",       color: "#3B82F6" },
             ].map((item) => (
               <Link
                 key={item.href}

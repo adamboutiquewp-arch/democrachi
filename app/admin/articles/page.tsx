@@ -3,7 +3,6 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 import DeleteArticleButton from "@/components/admin/DeleteArticleButton";
-import FeaturedCategorieButton from "@/components/admin/FeaturedCategorieButton";
 import ToggleArticleButton from "@/components/admin/ToggleArticleButton";
 import SocialShareModal from "@/components/admin/SocialShareModal";
 
@@ -33,29 +32,27 @@ const STATUT_LABEL: Record<string, string> = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ statut?: string; cat?: string; page?: string }>;
+  searchParams: Promise<{ statut?: string; page?: string }>;
 }
 
 export default async function AdminArticlesPage({ searchParams }: PageProps) {
-  const { statut, cat, page } = await searchParams;
+  const { statut, page } = await searchParams;
   const currentPage = Math.max(1, parseInt(page || "1"));
   const perPage = 20;
   const skip = (currentPage - 1) * perPage;
 
   const where: Record<string, unknown> = {};
   if (statut) where.statut = statut;
-  if (cat) where.categorie = { slug: cat };
 
-  const [articles, total, categories] = await Promise.all([
+  const [articles, total] = await Promise.all([
     prisma.article.findMany({
       where,
-      include: { categorie: { select: { nom: true, couleur: true, slug: true } } },
+      include: { categorie: { select: { slug: true } } },
       orderBy: { dateCreation: "desc" },
       take: perPage,
       skip,
     }),
     prisma.article.count({ where }),
-    prisma.categorie.findMany({ orderBy: { ordre: "asc" } }),
   ]);
 
   const pages = Math.ceil(total / perPage);
@@ -63,7 +60,6 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
   const buildUrl = (params: Record<string, string>) => {
     const sp = new URLSearchParams();
     if (statut) sp.set("statut", statut);
-    if (cat) sp.set("cat", cat);
     sp.set("page", "1");
     Object.entries(params).forEach(([k, v]) => (v ? sp.set(k, v) : sp.delete(k)));
     const query = sp.toString();
@@ -80,6 +76,12 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
             {total} article{total > 1 ? "s" : ""} au total
           </p>
         </div>
+        <Link
+          href="/admin/generer"
+          className="flex items-center gap-2 px-4 py-2.5 bg-[#E53935] text-white text-[12px] font-black tracking-wider uppercase rounded-lg hover:bg-[#c62828] transition-colors"
+        >
+          + Créer
+        </Link>
       </div>
 
       {/* Filtres statut */}
@@ -102,36 +104,6 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
               </Link>
             );
           })}
-
-          {/* Filtre catégorie par liens */}
-          {categories.length > 0 && (
-            <>
-              <span className="text-[#E0E0E0] mx-1">|</span>
-              <span className="text-[11px] font-bold tracking-wider uppercase text-[#bbb] mr-1">Catégorie</span>
-              <Link
-                href={buildUrl({ cat: "" })}
-                className={`px-3.5 py-1.5 rounded-lg text-[12px] font-semibold transition-all ${
-                  !cat ? "bg-[#111] text-white" : "bg-[#F5F5F5] text-[#666] hover:bg-[#EBEBEB]"
-                }`}
-              >
-                Toutes
-              </Link>
-              {categories.map((c) => (
-                <Link
-                  key={c.id}
-                  href={buildUrl({ cat: c.slug })}
-                  className={`px-3.5 py-1.5 rounded-lg text-[12px] font-semibold transition-all ${
-                    cat === c.slug
-                      ? "text-white"
-                      : "bg-[#F5F5F5] text-[#666] hover:bg-[#EBEBEB]"
-                  }`}
-                  style={cat === c.slug ? { backgroundColor: c.couleur } : {}}
-                >
-                  {c.nom}
-                </Link>
-              ))}
-            </>
-          )}
         </div>
       </div>
 
@@ -147,7 +119,6 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
               <thead>
                 <tr className="border-b border-[#F0F0F0]">
                   <th className="text-left px-6 py-3.5 text-[11px] font-bold tracking-wider uppercase text-[#bbb]">Article</th>
-                  <th className="text-left px-4 py-3.5 text-[11px] font-bold tracking-wider uppercase text-[#bbb] hidden md:table-cell">Catégorie</th>
                   <th className="text-left px-4 py-3.5 text-[11px] font-bold tracking-wider uppercase text-[#bbb]">Statut</th>
                   <th className="text-left px-4 py-3.5 text-[11px] font-bold tracking-wider uppercase text-[#bbb] hidden lg:table-cell">Date</th>
                   <th className="px-4 py-3.5 text-right text-[11px] font-bold tracking-wider uppercase text-[#bbb]">Actions</th>
@@ -159,17 +130,6 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
                     <td className="px-6 py-4 max-w-xs">
                       <p className="font-semibold text-[#111] line-clamp-1">{a.titre}</p>
                       <p className="text-[11px] text-[#bbb] mt-0.5 line-clamp-1">{a.chapo}</p>
-                    </td>
-                    <td className="px-4 py-4 hidden md:table-cell">
-                      <span
-                        className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded"
-                        style={{
-                          color: a.categorie.couleur,
-                          backgroundColor: `${a.categorie.couleur}18`,
-                        }}
-                      >
-                        {a.categorie.nom}
-                      </span>
                     </td>
                     <td className="px-4 py-4">
                       <span className={`px-2 py-1 text-[10px] font-bold rounded ${STATUT_STYLE[a.statut]}`}>
@@ -183,15 +143,6 @@ export default async function AdminArticlesPage({ searchParams }: PageProps) {
                       <div className="flex items-center justify-end gap-2 flex-wrap">
                         {(a.statut === "PUBLISHED" || a.statut === "DRAFT") && (
                           <ToggleArticleButton id={a.id} statut={a.statut} />
-                        )}
-                        {a.statut === "PUBLISHED" && (
-                          <FeaturedCategorieButton
-                            id={a.id}
-                            categorieId={a.categorieId}
-                            featuredCategorie={a.featuredCategorie}
-                            categorieNom={a.categorie.nom}
-                            categorieColor={a.categorie.couleur}
-                          />
                         )}
                         {a.statut === "PUBLISHED" && (
                           <SocialShareModal article={{ id: a.id, titre: a.titre, chapo: a.chapo, slug: a.slug, tags: a.tags, imageUrl: a.imageUrl, categorie: { slug: a.categorie.slug } }} variant="list" />

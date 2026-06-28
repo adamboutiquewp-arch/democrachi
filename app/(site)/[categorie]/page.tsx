@@ -36,7 +36,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const cat = await prisma.categorie.findUnique({ where: { slug: catSlug } });
   if (!cat) return { title: "Catégorie introuvable" };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com";
   const canonical = currentPage === 1
     ? `${siteUrl}/${catSlug}`
     : `${siteUrl}/${catSlug}?page=${currentPage}`;
@@ -99,7 +99,7 @@ export default async function CategoriePage({ params, searchParams }: PageProps)
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
   const sousCats = SOUS_CATEGORIES[catSlug] || ["Tout"];
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com";
   function absUrl(page: number) {
     const p = new URLSearchParams();
     if (sous && sous !== "Tout") p.set("sous", sous);

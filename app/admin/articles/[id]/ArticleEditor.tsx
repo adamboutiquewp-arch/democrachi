@@ -5,13 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SocialShareModal from "@/components/admin/SocialShareModal";
 
-interface Categorie {
-  id: string;
-  nom: string;
-  slug: string;
-  couleur: string;
-}
-
 interface Article {
   id: string;
   titre: string;
@@ -33,15 +26,14 @@ interface Article {
   imageClean: boolean;
   dateCreation: string;
   datePublication: string | null;
-  categorie: Categorie;
+  categorie: { id: string; nom: string; slug: string; couleur: string };
 }
 
 interface Props {
   article: Article;
-  categories: Categorie[];
 }
 
-export default function ArticleEditor({ article, categories }: Props) {
+export default function ArticleEditor({ article }: Props) {
   const router = useRouter();
   const [form, setForm] = useState({
     titre: article.titre,
@@ -251,32 +243,21 @@ export default function ArticleEditor({ article, categories }: Props) {
           </div>
 
           <div className="space-y-5">
-            <Field label="Catégorie">
-              <select value={form.categorieId} onChange={update("categorieId")}
-                className="w-full px-4 py-3 border border-[#E0E0E0] text-[13px] outline-none focus:border-black">
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>{c.nom}</option>
-                ))}
-              </select>
-            </Field>
             <label className="flex items-center gap-3 cursor-pointer p-3 bg-amber-50 border border-amber-200">
               <input type="checkbox" checked={form.imageClean}
                 onChange={(e) => setForm((f) => ({ ...f, imageClean: e.target.checked }))}
                 className="w-4 h-4 accent-amber-500 flex-shrink-0" />
               <div>
                 <span className="text-[13px] font-bold text-amber-800">Image propre — sans texte dessus</span>
-                <p className="text-[11px] text-amber-600 mt-0.5">Cocher pour que l&apos;image apparaisse sans titre ni texte en accueil</p>
+                <p className="text-[11px] text-amber-600 mt-0.5">Pour que l&apos;image apparaisse sans titre en accueil</p>
               </div>
             </label>
-            <Field label="Sous-catégorie">
-              <input type="text" value={form.sousCategorie} onChange={update("sousCategorie")}
-                className="w-full px-4 py-3 border border-[#E0E0E0] text-[13px] outline-none focus:border-black" />
-            </Field>
             <Field label="Tags (virgule-séparés)">
               <input type="text" value={form.tags} onChange={update("tags")}
-                placeholder="PSG, Football, Ligue des Champions"
+                placeholder="Macron, Retraites, Élites"
                 className="w-full px-4 py-3 border border-[#E0E0E0] text-[13px] outline-none focus:border-black" />
             </Field>
+
             {/* Upload depuis l'ordinateur */}
             <div className="p-3 bg-[#F5FFF5] border border-[#B7DFB7]">
               <p className="text-[10px] font-bold tracking-widest uppercase text-[#4CAF50] mb-2">Uploader une image</p>
@@ -295,7 +276,7 @@ export default function ArticleEditor({ article, categories }: Props) {
                   }}
                 />
                 <span className="text-[13px] font-medium text-[#4CAF50]">
-                  {uploadLoading ? "Upload en cours…" : "📁 Choisir une image depuis mon ordinateur"}
+                  {uploadLoading ? "Upload en cours…" : "📁 Choisir une image"}
                 </span>
               </label>
               {uploadMsg && (
@@ -307,7 +288,7 @@ export default function ArticleEditor({ article, categories }: Props) {
 
             {/* Recherche Wikipedia */}
             <div className="p-3 bg-[#F9F9F9] border border-[#E0E0E0]">
-              <p className="text-[10px] font-bold tracking-widest uppercase text-[#999] mb-2">Chercher photo Wikipedia</p>
+              <p className="text-[10px] font-bold tracking-widest uppercase text-[#999] mb-2">Photo Wikipedia</p>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -332,9 +313,10 @@ export default function ArticleEditor({ article, categories }: Props) {
                 </p>
               )}
             </div>
+
             {/* Recherche Openverse */}
             <div className="p-3 bg-[#F0F4FF] border border-[#C7D7FF]">
-              <p className="text-[10px] font-bold tracking-widest uppercase text-[#6B7CDD] mb-2">Chercher photo Openverse (libre de droits)</p>
+              <p className="text-[10px] font-bold tracking-widest uppercase text-[#6B7CDD] mb-2">Photo Openverse (libre de droits)</p>
               <div className="flex gap-2 mb-2">
                 <input
                   type="text"
@@ -420,13 +402,12 @@ export default function ArticleEditor({ article, categories }: Props) {
               className="w-full px-4 py-3 border border-[#E0E0E0] text-[13px] outline-none focus:border-black resize-none" />
             <p className="text-[11px] text-[#9E9E9E] mt-1">{form.metaDescription.length}/160 caractères</p>
           </Field>
-          {/* Aperçu SERP */}
           <div className="p-4 bg-[#F5F5F5] border border-[#E0E0E0]">
             <p className="text-[11px] text-[#9E9E9E] mb-3 uppercase tracking-wider font-bold">Aperçu Google</p>
             <p className="text-[#1558D6] text-[16px] hover:underline cursor-pointer">
               {form.metaTitle || form.titre}
             </p>
-            <p className="text-[#006621] text-[13px]">realitte.com › …</p>
+            <p className="text-[#006621] text-[13px]">democrachi.com › …</p>
             <p className="text-[#424242] text-[13px] mt-1 line-clamp-2">
               {form.metaDescription || form.chapo}
             </p>
@@ -442,7 +423,7 @@ export default function ArticleEditor({ article, categories }: Props) {
           </h1>
           <p className="text-[17px] italic text-[#424242] mb-6">{form.chapo}</p>
           <div
-            className="prose-realitte"
+            className="prose-democrachi"
             dangerouslySetInnerHTML={{ __html: form.contenu }}
           />
         </div>

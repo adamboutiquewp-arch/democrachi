@@ -3,28 +3,20 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 
-interface Categorie {
-  id: string;
-  nom: string;
-  slug: string;
-  couleur: string;
-}
-
 const EXEMPLES = [
-  "Les meilleurs buteurs de Ligue 1 cette saison",
-  "Macron annonce une réforme fiscale",
-  "La startup française qui révolutionne l'IA",
-  "Mbappé et le Real Madrid : bilan de la première année",
-  "Réchauffement climatique : les chiffres alarmants de 2025",
-  "Les 10 entrepreneurs français qui font bouger les lignes",
+  "Macron et les élites : qui tire vraiment les ficelles ?",
+  "Les médias mainstream mentent-ils délibérément au peuple ?",
+  "Corruption en France : les scandales qu'on ne montre pas à la télé",
+  "Pourquoi les politiciens font toujours pareil une fois élus",
+  "Le système bancaire expliqué : comment on vous vole légalement",
+  "Marine Le Pen, Macron, Mélenchon : marionnettes du même patron ?",
 ];
 
 type Mode = "sujet" | "photo";
 
-export default function GenerateurCustom({ categories }: { categories: Categorie[] }) {
+export default function GenerateurCustom() {
   const [mode, setMode] = useState<Mode>("sujet");
   const [sujet, setSujet] = useState("");
-  const [categorieSlug, setCategorieSlug] = useState("");
   const [useWebSearch, setUseWebSearch] = useState(true);
   const [imageClean, setImageClean] = useState(false);
   const [state, setState] = useState<"idle" | "uploading" | "loading" | "ok" | "error">("idle");
@@ -76,7 +68,6 @@ export default function GenerateurCustom({ categories }: { categories: Categorie
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sujet: sujet.trim() || undefined,
-          categorieSlugHint: categorieSlug || undefined,
           useWebSearch: mode === "sujet" ? useWebSearch : false,
           imageUrl: mode === "photo" ? uploadedImageUrl : undefined,
           imageClean,
@@ -97,7 +88,6 @@ export default function GenerateurCustom({ categories }: { categories: Categorie
     setResult(null);
     setError("");
     setSujet("");
-    setCategorieSlug("");
     setUploadedImageUrl(null);
     setPhotoPreview(null);
   };
@@ -219,37 +209,6 @@ export default function GenerateurCustom({ categories }: { categories: Categorie
               </div>
             </div>
           )}
-
-          {/* Catégorie */}
-          <div>
-            <label className="block text-[11px] font-bold tracking-wider uppercase text-[#999] mb-2">
-              Catégorie (optionnel)
-            </label>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setCategorieSlug("")}
-                className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold border transition-all ${
-                  !categorieSlug ? "bg-[#111] text-white border-[#111]" : "bg-[#F5F5F5] text-[#999] border-[#E8E8E8] hover:border-[#bbb]"
-                }`}
-              >
-                Auto
-              </button>
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setCategorieSlug(cat.slug)}
-                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border transition-all"
-                  style={
-                    categorieSlug === cat.slug
-                      ? { backgroundColor: cat.couleur, color: "#fff", borderColor: cat.couleur }
-                      : { backgroundColor: "#F5F5F5", color: "#999", borderColor: "#E8E8E8" }
-                  }
-                >
-                  {cat.nom}
-                </button>
-              ))}
-            </div>
-          </div>
 
           {/* Recherche web (mode sujet seulement) */}
           {mode === "sujet" && (

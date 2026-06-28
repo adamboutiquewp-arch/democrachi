@@ -147,10 +147,10 @@ async function main() {
   }
 
   // Super Admin
-  const adminEmail = "admin@realitte.fr";
+  const adminEmail = "admin@democrachi.com";
   const existing = await prisma.adminUser.findUnique({ where: { email: adminEmail } });
   if (!existing) {
-    const hash = await bcrypt.hash("Realitte2025!", 12);
+    const hash = await bcrypt.hash("DemoCrachi2025!", 12);
     await prisma.adminUser.create({
       data: {
         email: adminEmail,
@@ -159,7 +159,7 @@ async function main() {
         role: "SUPER_ADMIN",
       },
     });
-    console.log("  ✓ Admin: admin@realitte.fr / Realitte2025!");
+    console.log("  ✓ Admin créé : admin@democrachi.com");
     console.log("  ⚠️  Changez le mot de passe immédiatement après le premier login!");
   }
 

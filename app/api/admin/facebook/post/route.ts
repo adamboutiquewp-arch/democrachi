@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
 const FB_API = "https://graph.facebook.com/v19.0";
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com").replace(/\/$/, "");
 
 async function postToFacebook(pageId: string, token: string, message: string, articleUrl: string, imageUrl?: string | null) {
   if (imageUrl) {

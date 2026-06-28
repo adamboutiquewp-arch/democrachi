@@ -7,12 +7,12 @@ export const metadata: Metadata = { title: "Paramètres" };
 export const dynamic = "force-dynamic";
 
 const RESEAUX = [
-  { cle: "social_instagram", label: "Instagram", placeholder: "https://instagram.com/realitte" },
-  { cle: "social_x",         label: "X (Twitter)", placeholder: "https://x.com/realitte" },
-  { cle: "social_tiktok",    label: "TikTok",    placeholder: "https://tiktok.com/@realitte" },
-  { cle: "social_youtube",   label: "YouTube",   placeholder: "https://youtube.com/@realitte" },
-  { cle: "social_linkedin",  label: "LinkedIn",  placeholder: "https://linkedin.com/company/realitte" },
-  { cle: "social_facebook",  label: "Facebook",  placeholder: "https://facebook.com/realitte" },
+  { cle: "social_instagram", label: "Instagram", placeholder: "https://instagram.com/democrachi" },
+  { cle: "social_x",         label: "X (Twitter)", placeholder: "https://x.com/democrachi" },
+  { cle: "social_tiktok",    label: "TikTok",    placeholder: "https://tiktok.com/@democrachi" },
+  { cle: "social_youtube",   label: "YouTube",   placeholder: "https://youtube.com/@democrachi" },
+  { cle: "social_linkedin",  label: "LinkedIn",  placeholder: "https://linkedin.com/company/democrachi" },
+  { cle: "social_facebook",  label: "Facebook",  placeholder: "https://facebook.com/democrachi" },
 ];
 
 const FACEBOOK_API = [

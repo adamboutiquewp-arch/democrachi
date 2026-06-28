@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 // Google News ne consomme que les articles des 2 derniers jours
 export const revalidate = 300;
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com").replace(/\/$/, "");
 
 function escXml(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -32,7 +32,7 @@ export async function GET() {
     <loc>${url}</loc>
     <news:news>
       <news:publication>
-        <news:name>Réalitte</news:name>
+        <news:name>DemoCrachi</news:name>
         <news:language>fr</news:language>
       </news:publication>
       <news:publication_date>${pubDate}</news:publication_date>

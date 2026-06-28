@@ -62,7 +62,7 @@ model Article {
   sourceUrl       String
   sourceNom       String
   statut          StatutArticle @default(PENDING)
-  auteur          String        @default("Réalitte IA")
+  auteur          String        @default("DemoCrachi IA")
   vues            Int           @default(0)
   tempsLecture    Int?          // minutes
   scoreSeo        Int?

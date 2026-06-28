@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
@@ -75,6 +76,11 @@ export async function PATCH(
       data,
       include: { categorie: true },
     });
+
+    // Revalide la homepage immédiatement si l'article featured ou le statut change
+    if (featured !== undefined || statut !== undefined) {
+      revalidatePath("/");
+    }
 
     return NextResponse.json({ article });
   } catch (error) {

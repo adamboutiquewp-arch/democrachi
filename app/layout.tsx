@@ -14,50 +14,50 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com").replace(/\/$/, "");
 
 export const metadata: Metadata = {
   title: {
-    default: "Réalitte — Le vrai. Le brut. Le mérité.",
-    template: "%s | Réalitte",
+    default: "DemoCrachi — Le vrai. Le brut. Le mérité.",
+    template: "%s | DemoCrachi",
   },
   description:
-    "Réalitte, le média de ceux qui veulent comprendre le monde et ceux qui le changent. Actu, Sport, Économie, Politique, Créateurs, Entrepreneurs.",
+    "DemoCrachi, le média de ceux qui veulent comprendre le monde et ceux qui le changent. Actu, Sport, Économie, Politique, Créateurs, Entrepreneurs.",
   keywords: [
     "actualité", "actu", "news", "sport", "économie", "politique",
-    "créateurs de contenu", "entrepreneurs", "france", "réalitte",
+    "créateurs de contenu", "entrepreneurs", "france", "democrachi",
   ],
-  authors: [{ name: "Réalitte", url: SITE_URL }],
-  creator: "Réalitte",
-  publisher: "Réalitte",
+  authors: [{ name: "DemoCrachi", url: SITE_URL }],
+  creator: "DemoCrachi",
+  publisher: "DemoCrachi",
   metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: SITE_URL,
     types: {
-      "application/rss+xml": [{ url: `${SITE_URL}/feed.xml`, title: "Réalitte — Flux RSS" }],
+      "application/rss+xml": [{ url: `${SITE_URL}/feed.xml`, title: "DemoCrachi — Flux RSS" }],
     },
   },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Réalitte",
+    siteName: "DemoCrachi",
     url: SITE_URL,
-    title: "Réalitte — Le vrai. Le brut. Le mérité.",
+    title: "DemoCrachi — Le vrai. Le brut. Le mérité.",
     description:
       "Le média de ceux qui veulent comprendre le monde et ceux qui le changent.",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@realitte",
-    creator: "@realitte",
-    title: "Réalitte — Le vrai. Le brut. Le mérité.",
+    site: "@democrachi",
+    creator: "@democrachi",
+    title: "DemoCrachi — Le vrai. Le brut. Le mérité.",
     description:
       "Le média de ceux qui veulent comprendre le monde et ceux qui le changent.",
   },
   verification: {
-    google: "6ad3e2e6f14b2426",
+    google: "",
     other: {
-      "facebook-domain-verification": "zho3qpsv6civ28fepfy8efoy1o7d04",
+      "facebook-domain-verification": "",
     },
   },
   robots: {
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Réalitte",
+  name: "DemoCrachi",
   url: SITE_URL,
   potentialAction: {
     "@type": "SearchAction",
@@ -91,7 +91,7 @@ const websiteJsonLd = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "NewsMediaOrganization",
-  name: "Réalitte",
+  name: "DemoCrachi",
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
@@ -99,15 +99,10 @@ const organizationJsonLd = {
     width: 200,
     height: 60,
   },
-  sameAs: [
-    "https://instagram.com/realitte",
-    "https://x.com/realitte",
-    "https://linkedin.com/company/realitte",
-    "https://youtube.com/@realitte",
-  ],
+  sameAs: [],
   description:
-    "Réalitte est un média français d'actualité couvrant l'actu, le sport, la politique, les créateurs de contenu et les entrepreneurs.",
-  foundingDate: "2024",
+    "DemoCrachi est un média français d'actualité couvrant l'actu, le sport, la politique, les créateurs de contenu et les entrepreneurs.",
+  foundingDate: "2025",
   inLanguage: "fr",
 };
 
@@ -134,7 +129,7 @@ export default function RootLayout({
         {/* PWA */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Réalitte" />
+        <meta name="apple-mobile-web-app-title" content="DemoCrachi" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#E53935" />
         <script dangerouslySetInnerHTML={{

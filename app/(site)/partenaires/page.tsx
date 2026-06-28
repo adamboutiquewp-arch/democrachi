@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Partenaires & Sponsors",
-  description: "Associez votre marque à Réalitte, le média indépendant qui dit la vérité. Découvrez nos formats de partenariat.",
+  description: "Associez votre marque à DemoCrachi, le média indépendant qui dit la vérité. Découvrez nos formats de partenariat.",
 };
 
 export const dynamic = "force-dynamic";
@@ -75,12 +75,12 @@ export default async function PartenairesPage() {
             <span className="text-[#E53935]">à un média qui dit la vérité.</span>
           </h1>
           <p className="text-[16px] text-white/70 leading-relaxed max-w-2xl">
-            Réalitte touche une audience engagée, curieuse et exigeante.
+            DemoCrachi touche une audience engagée, curieuse et exigeante.
             Des lecteurs qui veulent comprendre le monde — et qui font confiance
             aux marques qui soutiennent un média indépendant.
           </p>
           <a
-            href="mailto:contact@realitte.com?subject=Partenariat Réalitte"
+            href="mailto:contact@democrachi.com?subject=Partenariat DemoCrachi"
             className="inline-flex items-center gap-2 mt-8 px-8 py-4 bg-[#E53935] text-white text-[12px] font-bold tracking-widest uppercase hover:bg-[#c62828] transition-colors"
           >
             Nous contacter
@@ -171,10 +171,10 @@ export default async function PartenairesPage() {
             Écrivez-nous avec votre projet et on vous répond sous 48h avec une proposition sur mesure.
           </p>
           <a
-            href="mailto:contact@realitte.com?subject=Partenariat Réalitte"
+            href="mailto:contact@democrachi.com?subject=Partenariat DemoCrachi"
             className="inline-flex items-center gap-2 px-8 py-4 bg-[#E53935] text-white text-[12px] font-bold tracking-widest uppercase hover:bg-[#c62828] transition-colors"
           >
-            contact@realitte.com
+            contact@democrachi.com
           </a>
         </section>
 

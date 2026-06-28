@@ -84,7 +84,7 @@ export default async function AdminEntrepreneursPage() {
         </div>
         <a
           href="/api/admin/entrepreneurs-pdf"
-          download="realitte-dossier-entrepreneur.pdf"
+          download="democrachi-dossier-entrepreneur.pdf"
           className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#111] text-white text-[12px] font-bold rounded hover:bg-[#E53935] transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

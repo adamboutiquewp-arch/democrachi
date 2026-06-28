@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `#${nom} — Réalitte`,
     description: `Tous les articles Réalitte sur le sujet "${nom}". Actu, analyses et décryptages.`,
-    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com"}/tag/${tag}` },
+    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com"}/tag/${tag}` },
     openGraph: {
       title: `#${nom} — Réalitte`,
       description: `Tous les articles sur "${nom}".`,

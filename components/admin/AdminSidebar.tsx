@@ -19,33 +19,24 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Contenu",
     items: [
-      { label: "Tableau de bord", href: "/admin",              icon: IconDashboard },
-      { label: "Articles",           href: "/admin/articles",  icon: IconArticle },
-      { label: "Générer un article", href: "/admin/generer",   icon: IconGenerate },
-      { label: "Gestion des unes",   href: "/admin/une",       icon: IconStar },
-      { label: "Catégories",         href: "/admin/categories", icon: IconTag },
+      { label: "Tableau de bord",  href: "/admin",          icon: IconDashboard },
+      { label: "Articles",         href: "/admin/articles", icon: IconArticle },
+      { label: "Créer un article", href: "/admin/generer",  icon: IconGenerate },
+      { label: "Gestion des unes", href: "/admin/une",      icon: IconStar },
     ],
   },
   {
     label: "Audience",
     items: [
-      { label: "Commentaires",    href: "/admin/commentaires", icon: IconComment },
-      { label: "Newsletter",      href: "/admin/newsletter",   icon: IconMail },
-    ],
-  },
-  {
-    label: "Monétisation",
-    items: [
-      { label: "Espaces partenaires", href: "/admin/partenaires",    icon: IconAd },
-      { label: "Publicité",           href: "/admin/pub",            icon: IconAd },
-      { label: "Entrepreneurs",       href: "/admin/entrepreneurs",  icon: IconEntrepreneur },
+      { label: "Commentaires", href: "/admin/commentaires", icon: IconComment },
+      { label: "Newsletter",   href: "/admin/newsletter",   icon: IconMail },
     ],
   },
   {
     label: "Administration",
     items: [
-      { label: "Paramètres",      href: "/admin/parametres",   icon: IconSettings },
-      { label: "Utilisateurs",    href: "/admin/utilisateurs", icon: IconUsers, superAdminOnly: true },
+      { label: "Paramètres",   href: "/admin/parametres",   icon: IconSettings },
+      { label: "Utilisateurs", href: "/admin/utilisateurs", icon: IconUsers, superAdminOnly: true },
     ],
   },
 ];
@@ -75,7 +66,7 @@ export default function AdminSidebar({ role, open }: Props) {
             className="text-[22px] font-bold text-white tracking-tight"
             style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
           >
-            Réalitte<span className="text-[#E53935]">.</span>
+            DemoCrachi<span className="text-[#E53935]">.</span>
           </span>
           <span className="block text-[10px] text-[#555] tracking-[0.18em] uppercase mt-0.5">
             Back-office

@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     const result = await cloudinary.uploader.upload(base64, {
-      folder: "realitte/articles",
+      folder: "democrachi/articles",
       transformation: [{ quality: "auto", fetch_format: "auto" }],
     });
 

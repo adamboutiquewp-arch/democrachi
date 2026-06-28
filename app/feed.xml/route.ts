@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export const revalidate = 600;
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com").replace(/\/$/, "");
 
 function escXml(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -43,7 +43,7 @@ export async function GET() {
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Réalitte — Le vrai. Le brut. Le mérité.</title>
+    <title>DemoCrachi — Le vrai. Le brut. Le mérité.</title>
     <link>${SITE_URL}</link>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
     <description>Le média de ceux qui veulent comprendre le monde et ceux qui le changent.</description>
@@ -51,7 +51,7 @@ export async function GET() {
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <image>
       <url>${SITE_URL}/logo.png</url>
-      <title>Réalitte</title>
+      <title>DemoCrachi</title>
       <link>${SITE_URL}</link>
     </image>
     ${items}

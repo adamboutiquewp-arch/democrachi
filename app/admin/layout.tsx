@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import AdminShell from "@/components/admin/AdminShell";
 
 export const metadata = {
-  title: { default: "Admin — Réalitte", template: "%s | Admin Réalitte" },
+  title: { default: "Admin — DemoCrachi", template: "%s | Admin DemoCrachi" },
   robots: { index: false, follow: false },
 };
 

@@ -18,13 +18,10 @@ export const dynamic = "force-dynamic";
 export default async function AdminArticleEditPage({ params }: PageProps) {
   const { id } = await params;
 
-  const [article, categories] = await Promise.all([
-    prisma.article.findUnique({
-      where: { id },
-      include: { categorie: true },
-    }),
-    prisma.categorie.findMany({ orderBy: { ordre: "asc" } }),
-  ]);
+  const article = await prisma.article.findUnique({
+    where: { id },
+    include: { categorie: { select: { id: true, nom: true, slug: true, couleur: true } } },
+  });
 
   if (!article) notFound();
 
@@ -35,7 +32,6 @@ export default async function AdminArticleEditPage({ params }: PageProps) {
         dateCreation: article.dateCreation.toISOString(),
         datePublication: article.datePublication?.toISOString() || null,
       }}
-      categories={categories}
     />
   );
 }

@@ -2,8 +2,8 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Réalitte — Le vrai. Le brut. Le mérité.",
-    short_name: "Réalitte",
+    name: "DemoCrachi — Le vrai. Le brut. Le mérité.",
+    short_name: "DemoCrachi",
     description: "Le média de ceux qui veulent comprendre le monde et ceux qui le changent.",
     start_url: "/",
     display: "standalone",

@@ -12,7 +12,7 @@ async function fetchWikipediaImage(nom: string): Promise<{ url: string; alt: str
     try {
       const res = await fetch(
         `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(nom)}`,
-        { headers: { "User-Agent": "Realitte/1.0 (contact@realitte.com)" } }
+        { headers: { "User-Agent": "Democrachi/1.0 (contact@democrachi.com)" } }
       );
       if (!res.ok) return null;
       const data = await res.json();
@@ -43,13 +43,13 @@ async function fetchUnsplashImage(query: string): Promise<{ url: string; alt: st
   }
 }
 
-const PROMPT_SYSTEM = `Tu es un journaliste professionnel pour le média Réalitte (France).
+const PROMPT_SYSTEM = `Tu es un journaliste professionnel pour le média DemoCrachi (France).
 Tu rédiges des articles à partir de sources RSS françaises et internationales.
 Règles impératives :
 - Rédige TOUJOURS en français, même si la source est en anglais ou autre langue — traduis et adapte
 - Si la source est étrangère, contextualise pour un lecteur français (précise les pays, explique les enjeux)
 - Rédige UNIQUEMENT à partir des faits fournis, sans inventer
-- Ton Réalitte : direct, engagé, accessible, jamais condescendant
+- Ton DemoCrachi : direct, engagé, accessible, jamais condescendant
 - Cite toujours la source originale
 - Formate le contenu en HTML simple (balises p, h2, h3, blockquote uniquement)
 - Réponds UNIQUEMENT en JSON valide, sans markdown ni backticks`;

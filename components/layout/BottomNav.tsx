@@ -12,7 +12,7 @@ const NAV = [
   { label: "Profil",     href: "/profil",    icon: UserIcon },
 ];
 
-export const PROFIL_KEY = "realitte_profil";
+export const PROFIL_KEY = "democrachi_profil";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -25,8 +25,8 @@ export default function BottomNav() {
 
     // Écoute les changements (ex: après création du profil sur la même page)
     const onStorage = () => setVisible(!!localStorage.getItem(PROFIL_KEY));
-    window.addEventListener("realitte-profil-updated", onStorage);
-    return () => window.removeEventListener("realitte-profil-updated", onStorage);
+    window.addEventListener("democrachi-profil-updated", onStorage);
+    return () => window.removeEventListener("democrachi-profil-updated", onStorage);
   }, []);
 
   if (!visible) return null;

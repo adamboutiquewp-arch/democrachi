@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import GenerateurCustom from "@/components/admin/GenerateurCustom";
+import GenerateurSimple from "@/components/admin/GenerateurSimple";
 
 export const metadata: Metadata = { title: "Générer un article" };
-export const dynamic = "force-dynamic";
 
-export default async function GenererPage() {
-  const categories = await prisma.categorie.findMany({ orderBy: { ordre: "asc" } });
+export default function GenererPage() {
   return (
-    <div className="max-w-[800px]">
+    <div className="max-w-[680px]">
       <div className="mb-8">
-        <h1 className="text-[22px] font-black text-[#111]">Générer un article</h1>
+        <h1 className="text-[22px] font-black text-[#111]">Créer un article</h1>
         <p className="text-[13px] text-[#999] mt-0.5">
-          Génère un article sur un sujet précis avec recherche web en temps réel
+          Ajoute une photo et un sujet — Claude rédige l&apos;article automatiquement
         </p>
       </div>
-      <GenerateurCustom categories={categories} />
+      <GenerateurSimple />
     </div>
   );
 }

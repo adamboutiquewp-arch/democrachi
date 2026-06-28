@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
-  description: "Politique de confidentialité et protection des données personnelles de Réalitte.",
+  description: "Politique de confidentialité et protection des données personnelles de DemoCrachi.",
 };
 
 export default function ConfidentialitePage() {
@@ -21,7 +21,7 @@ export default function ConfidentialitePage() {
         <section>
           <h2 className="text-xl font-bold text-[#111] mb-3">1. Responsable du traitement</h2>
           <p>
-            Le responsable du traitement des données personnelles collectées sur <strong>realitte.com</strong> est l&apos;équipe Réalitte, joignable à : <a href="mailto:contact@realitte.com" className="text-[#E53935] hover:underline">contact@realitte.com</a>
+            Le responsable du traitement des données personnelles collectées sur <strong>democrachi.com</strong> est l&apos;équipe DemoCrachi, joignable à : <a href="mailto:contact@democrachi.com" className="text-[#E53935] hover:underline">contact@democrachi.com</a>
           </p>
         </section>
 
@@ -69,7 +69,7 @@ export default function ConfidentialitePage() {
             <li><strong>Droit d&apos;opposition</strong> : vous opposer au traitement</li>
           </ul>
           <p className="mt-3">
-            Pour exercer ces droits : <a href="mailto:contact@realitte.com" className="text-[#E53935] hover:underline">contact@realitte.com</a>
+            Pour exercer ces droits : <a href="mailto:contact@democrachi.com" className="text-[#E53935] hover:underline">contact@democrachi.com</a>
           </p>
         </section>
 

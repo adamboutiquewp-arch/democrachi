@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
   if (!article) return { title: "Article introuvable" };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com";
   const articleUrl = `${siteUrl}/${catSlug}/${slug}`;
   const ogImage = article.imageUrl
     ? [{ url: article.imageUrl, alt: article.imageAlt || article.titre, width: 1200, height: 630 }]
@@ -113,7 +113,7 @@ export default async function ArticlePage({ params }: PageProps) {
     },
   }));
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com";
   const articleUrl = `${siteUrl}/${catSlug}/${slug}`;
   const pubDate = (article.datePublication ?? article.dateCreation).toISOString();
 
@@ -213,7 +213,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
             {/* Contenu */}
             <div
-              className="prose-realitte"
+              className="prose-democrachi"
               dangerouslySetInnerHTML={{ __html: article.contenu }}
             />
 
@@ -248,7 +248,7 @@ export default async function ArticlePage({ params }: PageProps) {
             )}
 
             <ShareButtons
-              url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com"}/${catSlug}/${slug}`}
+              url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com"}/${catSlug}/${slug}`}
               titre={article.titre}
             />
           </article>

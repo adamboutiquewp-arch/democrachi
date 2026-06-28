@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export const revalidate = 600;
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://realitte.com").replace(/\/$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://democrachi.com").replace(/\/$/, "");
 
 export async function GET(
   _req: Request,

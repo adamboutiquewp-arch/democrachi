@@ -1,180 +1,162 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
-import HeroSection from "@/components/home/HeroSection";
-import DernieresInfos from "@/components/home/DernieresInfos";
-import AlaUneGrid from "@/components/home/AlaUneGrid";
-import EspacePartenaire from "@/components/home/EspacePartenaire";
-import SuccessStories from "@/components/home/SuccessStories";
-import Newsletter from "@/components/home/Newsletter";
-import ValuesBar from "@/components/home/ValuesBar";
-import NewsletterForm from "@/components/newsletter/NewsletterForm";
 import Link from "next/link";
-import type { ArticleCard, DerniereInfo } from "@/types";
+import Image from "next/image";
+import NewsletterInline from "@/components/newsletter/NewsletterInline";
 
 export const metadata: Metadata = {
-  title: "Réalitte — Le vrai. Le brut. Le mérité.",
+  title: "DemoCrachi — Des caricatures contre le système",
   description:
-    "Le média de ceux qui veulent comprendre le monde et ceux qui le changent. Actu, Sport, Économie, Politique, Anecdotes, Success Stories.",
+    "DemoCrachi.com, c'est un média de caricatures qui démonte l'hypocrisie, la corruption et la manipulation du système. Un article un jour sur deux pour ouvrir les yeux.",
 };
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 async function getHomeData() {
-  try {
-    const [heroArticle, dernieresInfos, alaUne, successStories] =
-      await Promise.all([
-        prisma.article.findFirst({
-          where: { statut: "PUBLISHED" },
-          include: { categorie: true },
-          orderBy: [{ featured: "desc" }, { datePublication: "desc" }],
-        }),
-
-        prisma.article.findMany({
-          where: { statut: "PUBLISHED" },
-          include: { categorie: true },
-          orderBy: { datePublication: "desc" },
-          take: 4,
-        }),
-
-        prisma.article.findMany({
-          where: { statut: "PUBLISHED" },
-          include: { categorie: true },
-          orderBy: { datePublication: "desc" },
-          skip: 1,
-          take: 4,
-        }),
-
-        prisma.article.findMany({
-          where: { statut: "PUBLISHED" },
-          include: { categorie: true },
-          orderBy: { datePublication: "desc" },
-          skip: 5,
-          take: 3,
-        }),
-      ]);
-
-    return { heroArticle, dernieresInfos, alaUne, successStories };
-  } catch {
-    return { heroArticle: null, dernieresInfos: [], alaUne: [], successStories: [] };
-  }
-}
-
-function mapToCard(a: {
-  id: string;
-  titre: string;
-  slug: string;
-  chapo: string;
-  imageUrl: string | null;
-  imageAlt: string | null;
-  imageClean: boolean;
-  sousCategorie: string | null;
-  tags: string[];
-  datePublication: Date | null;
-  tempsLecture: number | null;
-  vues: number;
-  categorie: { nom: string; slug: string; couleur: string };
-}): ArticleCard {
-  return {
-    id: a.id,
-    titre: a.titre,
-    slug: a.slug,
-    chapo: a.chapo,
-    imageUrl: a.imageUrl,
-    imageAlt: a.imageAlt,
-    imageClean: a.imageClean,
-    sousCategorie: a.sousCategorie,
-    tags: a.tags,
-    datePublication: a.datePublication,
-    tempsLecture: a.tempsLecture,
-    vues: a.vues,
-    categorie: {
-      nom: a.categorie.nom,
-      slug: a.categorie.slug,
-      couleur: a.categorie.couleur,
-    },
-  };
+  const article =
+    (await prisma.article.findFirst({
+      where: { statut: "PUBLISHED", featured: true },
+      include: { categorie: true },
+      orderBy: { datePublication: "desc" },
+    })) ??
+    (await prisma.article.findFirst({
+      where: { statut: "PUBLISHED" },
+      include: { categorie: true },
+      orderBy: { datePublication: "desc" },
+    }));
+  return { article };
 }
 
 export default async function HomePage() {
-  const { heroArticle, dernieresInfos, alaUne, successStories } =
-    await getHomeData();
-
-  const mappedHero: ArticleCard | null = heroArticle ? mapToCard(heroArticle) : null;
-
-  const mappedDernieres: DerniereInfo[] = dernieresInfos.map((a) => ({
-    id: a.id,
-    titre: a.titre,
-    slug: a.slug,
-    categorieNom: a.categorie.nom,
-    categorieCouleur: a.categorie.couleur,
-    categorieSlug: a.categorie.slug,
-    imageUrl: a.imageUrl,
-    datePublication: a.datePublication,
-  }));
+  const { article } = await getHomeData();
 
   return (
     <>
-      {/* Hero + Dernières infos */}
-      <div className="bg-black">
-        <div className="container-site">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-0">
-            <div className="lg:border-r lg:border-white/10">
-              <HeroSection article={mappedHero} />
-            </div>
-            <div className="hidden lg:flex flex-col justify-center py-10 px-8">
-              <DernieresInfos articles={mappedDernieres} dark />
-            </div>
+      {/* ══════════════════════════════════════════════
+          HERO — Image plein écran, aucun texte dessus
+      ══════════════════════════════════════════════ */}
+      <section className="w-full bg-black">
+        {article?.imageUrl ? (
+          /* Image en taille naturelle — pleine largeur, hauteur automatique */
+          <Image
+            src={article.imageUrl}
+            alt={article.imageAlt || article.titre}
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-auto block"
+            style={{ maxHeight: "100svh", objectFit: "contain", objectPosition: "center" }}
+            priority
+          />
+        ) : (
+          <div className="relative w-full" style={{ height: "100svh" }}>
+            <Image
+              src="/hero-illustration.png"
+              alt="DemoCrachi"
+              fill
+              className="object-contain object-center"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        )}
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          TITRE DE L'ARTICLE — Bande noire sous l'image
+      ══════════════════════════════════════════════ */}
+      {article && (
+        <section className="bg-[#0a0a0a] border-b-4 border-[#CC0000] py-10 md:py-14">
+          <div className="max-w-[1100px] mx-auto px-4 md:px-8">
+            <p className="text-[11px] font-black tracking-[0.3em] uppercase text-[#CC0000] mb-4">
+              À la une
+            </p>
+            <h1
+              className="text-[36px] sm:text-[50px] md:text-[64px] font-black uppercase leading-[0.95] tracking-tight text-white mb-5 max-w-[860px]"
+              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+            >
+              {article.titre}
+            </h1>
+            <p className="text-[16px] md:text-[19px] text-white/70 leading-relaxed mb-8 max-w-[700px]">
+              {article.chapo}
+            </p>
+            <Link
+              href={`/${article.categorie.slug}/${article.slug}`}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#CC0000] text-white text-[13px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
+            >
+              Lire l&apos;article →
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ══════════════════════════════════════════════
+          NOTRE COMBAT — Fond parchemin
+      ══════════════════════════════════════════════ */}
+      <section className="bg-[#f0e6c8] border-y-4 border-[#d4c49a] py-12 md:py-16">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+          <h2 className="text-[28px] md:text-[36px] font-black uppercase text-center text-[#111] tracking-tight mb-10">
+            Notre combat
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+            {[
+              { icon: "🗳️", titre: "La démocratie",          texte: "Le pouvoir au peuple, pas à une élite déconnectée." },
+              { icon: "🐑", titre: "Contre la manipulation",  texte: "Médias aux ordres, mensonges en boucle, on dit stop." },
+              { icon: "💰", titre: "Contre la corruption",    texte: "Politiciens vendus, lobbyistes tout-puissants, on expose tout." },
+              { icon: "📺", titre: "L'esprit critique",       texte: "Rire, caricaturer, provoquer pour faire réfléchir." },
+              { icon: "✊", titre: "Un peuple uni",            texte: "Ensemble pour reprendre notre pouvoir en main." },
+            ].map(({ icon, titre, texte }) => (
+              <div key={titre} className="flex flex-col items-center text-center col-span-1">
+                <div className="text-[42px] mb-3">{icon}</div>
+                <h3 className="text-[12px] font-black uppercase tracking-wider text-[#111] mb-2">{titre}</h3>
+                <p className="text-[12px] text-[#555] leading-relaxed">{texte}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Dernières infos mobile */}
-      <div className="lg:hidden bg-white border-b border-[#E0E0E0] py-6">
-        <div className="container-site">
-          <DernieresInfos articles={mappedDernieres} />
-        </div>
-      </div>
+      {/* ══════════════════════════════════════════════
+          NEWSLETTER + SOUTIEN
+      ══════════════════════════════════════════════ */}
+      <section className="bg-[#111] py-12 md:py-16">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
 
-      {/* Corps de page */}
-      <div className="container-site">
-        <AlaUneGrid articles={alaUne.map(mapToCard)} />
-        <hr className="separator my-4" />
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="text-[72px] flex-shrink-0">😈</div>
+              <div>
+                <h2 className="text-[24px] md:text-[28px] font-black uppercase text-white leading-tight mb-1">
+                  Soutenez la liberté d&apos;expression
+                </h2>
+                <p className="text-[16px] font-bold text-[#CC0000] uppercase mb-3">
+                  Sans vous, pas de DemoCrachi&nbsp;!
+                </p>
+                <p className="text-[13px] text-[#777] leading-relaxed max-w-[420px]">
+                  Ce média indépendant vit grâce à ses lecteurs. Soutenez, partagez, diffusez la vérité.
+                </p>
+                <Link
+                  href="/newsletter"
+                  className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
+                >
+                  ♥ Soutenir le combat
+                </Link>
+              </div>
+            </div>
 
-        {/* Espace partenaire + Newsletter sur la même ligne */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-center my-8 md:my-12">
-          <EspacePartenaire />
-          <div className="flex flex-col items-center text-center lg:border-l lg:border-[#E0E0E0] lg:pl-8">
-            <Newsletter />
-          </div>
-        </div>
-
-        <hr className="separator my-4" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 py-10 md:py-12">
-          <SuccessStories articles={successStories.map(mapToCard)} />
-
-          <aside className="lg:pl-8 lg:border-l lg:border-[#E0E0E0]">
-            <div className="mt-0 pt-0">
-              <h3 className="text-[15px] font-black tracking-tight uppercase mb-1">
-                Réalitte.
+            <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 flex flex-col justify-center">
+              <div className="text-[40px] mb-4 text-center">📅</div>
+              <h3 className="text-[22px] md:text-[26px] font-black uppercase text-white text-center leading-tight mb-2">
+                Lun · Mer · Ven · Dim
               </h3>
-              <div className="w-6 h-[3px] bg-[#E53935] mb-4" />
-              <p className="text-[12px] font-bold tracking-widest uppercase text-[#9E9E9E] mb-3 leading-relaxed">
-                Le média de ceux qui veulent comprendre le monde, et ceux qui le changent.
+              <p className="text-[12px] font-bold tracking-widest uppercase text-[#CC0000] text-center mb-4">
+                Un article tous les deux jours
               </p>
-              <Link
-                href="/a-propos"
-                className="inline-flex items-center px-5 py-3 bg-black text-white text-[11px] font-bold tracking-widest uppercase hover:bg-[#E53935] transition-colors"
-              >
-                Découvrir notre mission
-              </Link>
+              <NewsletterInline />
             </div>
-          </aside>
+          </div>
         </div>
-      </div>
-
-      <NewsletterForm variant="section" />
-      <ValuesBar />
+      </section>
     </>
   );
 }
