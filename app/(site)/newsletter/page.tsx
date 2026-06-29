@@ -17,8 +17,11 @@ export default async function DonPage() {
   return (
     <>
       {/* HERO */}
-      <section className="w-full bg-[#0a0a0a] border-b-4 border-[#CC0000] py-12 md:py-16">
-        <div className="w-full max-w-[700px] mx-auto px-4 text-center">
+      <section
+        className="w-full bg-[#0a0a0a] border-b-4 border-[#CC0000] py-12 md:py-16"
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <div className="w-full px-4 text-center" style={{ maxWidth: "680px" }}>
           <p className="text-[11px] font-black tracking-[0.3em] uppercase text-[#CC0000] mb-4">
             Média indépendant
           </p>
@@ -28,7 +31,7 @@ export default async function DonPage() {
           >
             Soutenez le combat
           </h1>
-          <p className="text-[15px] md:text-[17px] text-white/60 leading-relaxed mx-auto">
+          <p className="text-[15px] md:text-[17px] text-white/60 leading-relaxed">
             DemoCrachi vit grâce à vous. Pas de pub, pas de subvention, pas de
             patron. Seulement vos dons pour continuer à dire la vérité.
           </p>
@@ -54,8 +57,11 @@ export default async function DonPage() {
       </section>
 
       {/* ARGUMENTS */}
-      <section className="w-full bg-[#111] pt-12 pb-0">
-        <div className="w-full max-w-[860px] mx-auto px-4 md:px-8">
+      <section
+        className="w-full bg-[#111] pt-12 pb-0"
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <div className="w-full px-4 md:px-8" style={{ maxWidth: "860px" }}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: "🔓", titre: "100% indépendant", texte: "Aucun actionnaire, aucune pression, aucune censure." },
@@ -73,8 +79,11 @@ export default async function DonPage() {
       </section>
 
       {/* FORMULAIRE */}
-      <section className="w-full bg-[#111] py-12">
-        <div className="w-full max-w-[520px] mx-auto px-4">
+      <section
+        className="w-full bg-[#111] py-12"
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <div className="w-full px-4" style={{ maxWidth: "520px" }}>
           <div className="bg-[#0a0a0a] border border-white/10 p-8 md:p-10">
             <h2 className="text-[18px] font-black uppercase text-white text-center mb-7 tracking-tight">
               Choisissez votre montant

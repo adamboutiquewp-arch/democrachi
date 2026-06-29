@@ -123,10 +123,10 @@ export default function NotreCombatPage() {
             className={`border-b border-[#EBEBEB] ${i % 2 === 1 ? "bg-[#F7F7F7]" : "bg-white"}`}
           >
             <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 md:py-20">
-              <div className={`flex flex-col lg:flex-row gap-8 lg:gap-14 items-center ${reversed ? "lg:flex-row-reverse" : ""}`}>
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
 
                 {/* ── Image ── */}
-                <div className="w-full lg:w-[48%] lg:shrink-0">
+                <div className={`w-full lg:w-[48%] lg:shrink-0 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
                   <div className="overflow-hidden rounded-sm shadow-2xl group">
                     <Image
                       src={c.img}
@@ -140,7 +140,7 @@ export default function NotreCombatPage() {
                 </div>
 
                 {/* ── Texte ── */}
-                <div className="flex-1 min-w-0">
+                <div className={`flex-1 min-w-0 ${reversed ? "lg:order-1" : "lg:order-2"}`}>
                   <p className="text-[10px] font-black tracking-[0.35em] uppercase text-[#CC0000] mb-2">
                     Combat {c.num} sur 5
                   </p>
