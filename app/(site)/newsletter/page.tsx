@@ -72,16 +72,18 @@ export default async function DonPage() {
           </div>
 
           {/* FORMULAIRE — centré sur desktop */}
-          <div className="max-w-[520px] mx-auto">
-            <div className="bg-[#0a0a0a] border border-white/10 p-8 md:p-10">
-              <h2 className="text-[18px] font-black uppercase text-white text-center mb-7 tracking-tight">
-                Choisissez votre montant
-              </h2>
-              <DonForm />
+          <div className="flex flex-col items-center">
+            <div className="w-full max-w-[520px]">
+              <div className="bg-[#0a0a0a] border border-white/10 p-8 md:p-10">
+                <h2 className="text-[18px] font-black uppercase text-white text-center mb-7 tracking-tight">
+                  Choisissez votre montant
+                </h2>
+                <DonForm />
+              </div>
+              <p className="text-center text-[11px] text-white/20 mt-5 tracking-wide">
+                Paiement sécurisé par Stripe · Aucun abonnement · À partir de 1€
+              </p>
             </div>
-            <p className="text-center text-[11px] text-white/20 mt-5 tracking-wide">
-              Paiement sécurisé par Stripe · Aucun abonnement · À partir de 1€
-            </p>
           </div>
         </div>
       </section>
