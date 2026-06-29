@@ -117,7 +117,7 @@ export default function AProposPage() {
             <div className={`flex flex-col lg:flex-row gap-8 lg:gap-14 items-center ${s.reversed ? "lg:flex-row-reverse" : ""}`}>
 
               {/* ── Image (paysage) ── */}
-              <div className="w-full lg:w-[55%] lg:flex-shrink-0">
+              <div className="w-full lg:w-[55%] lg:shrink-0">
                 <div className="overflow-hidden rounded-sm shadow-2xl group">
                   <Image
                     src={s.img}

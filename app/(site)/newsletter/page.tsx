@@ -17,8 +17,8 @@ export default async function DonPage() {
   return (
     <>
       {/* HERO */}
-      <section className="bg-[#0a0a0a] border-b-4 border-[#CC0000] py-12 md:py-16">
-        <div className="max-w-[860px] mx-auto px-4 md:px-8 text-center">
+      <section className="w-full bg-[#0a0a0a] border-b-4 border-[#CC0000] py-12 md:py-16">
+        <div className="w-full max-w-[700px] mx-auto px-4 text-center">
           <p className="text-[11px] font-black tracking-[0.3em] uppercase text-[#CC0000] mb-4">
             Média indépendant
           </p>
@@ -28,12 +28,11 @@ export default async function DonPage() {
           >
             Soutenez le combat
           </h1>
-          <p className="text-[15px] md:text-[17px] text-white/60 leading-relaxed max-w-[520px] mx-auto">
+          <p className="text-[15px] md:text-[17px] text-white/60 leading-relaxed mx-auto">
             DemoCrachi vit grâce à vous. Pas de pub, pas de subvention, pas de
             patron. Seulement vos dons pour continuer à dire la vérité.
           </p>
 
-          {/* Compteur */}
           {nbDons > 0 && (
             <div className="mt-7 inline-flex items-center gap-6 border border-white/10 px-8 py-4 bg-white/5">
               <div className="text-center">
@@ -54,10 +53,10 @@ export default async function DonPage() {
         </div>
       </section>
 
-      {/* ARGUMENTS + FORMULAIRE */}
-      <section className="bg-[#111] py-12">
-        <div className="max-w-[860px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      {/* ARGUMENTS */}
+      <section className="w-full bg-[#111] pt-12 pb-0">
+        <div className="w-full max-w-[860px] mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: "🔓", titre: "100% indépendant", texte: "Aucun actionnaire, aucune pression, aucune censure." },
               { icon: "✊", titre: "Chaque euro compte", texte: "Un don de 5€ finance un article entier." },
@@ -70,21 +69,21 @@ export default async function DonPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* FORMULAIRE — centré sur desktop */}
-          <div className="flex flex-col items-center">
-            <div className="w-full max-w-[520px]">
-              <div className="bg-[#0a0a0a] border border-white/10 p-8 md:p-10">
-                <h2 className="text-[18px] font-black uppercase text-white text-center mb-7 tracking-tight">
-                  Choisissez votre montant
-                </h2>
-                <DonForm />
-              </div>
-              <p className="text-center text-[11px] text-white/20 mt-5 tracking-wide">
-                Paiement sécurisé par Stripe · Aucun abonnement · À partir de 1€
-              </p>
-            </div>
+      {/* FORMULAIRE */}
+      <section className="w-full bg-[#111] py-12">
+        <div className="w-full max-w-[520px] mx-auto px-4">
+          <div className="bg-[#0a0a0a] border border-white/10 p-8 md:p-10">
+            <h2 className="text-[18px] font-black uppercase text-white text-center mb-7 tracking-tight">
+              Choisissez votre montant
+            </h2>
+            <DonForm />
           </div>
+          <p className="text-center text-[11px] text-white/20 mt-5 tracking-wide">
+            Paiement sécurisé par Stripe · Aucun abonnement · À partir de 1€
+          </p>
         </div>
       </section>
     </>

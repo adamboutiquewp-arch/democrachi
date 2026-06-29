@@ -126,7 +126,7 @@ export default function NotreCombatPage() {
               <div className={`flex flex-col lg:flex-row gap-8 lg:gap-14 items-center ${reversed ? "lg:flex-row-reverse" : ""}`}>
 
                 {/* ── Image ── */}
-                <div className="w-full lg:w-[48%] lg:flex-shrink-0">
+                <div className="w-full lg:w-[48%] lg:shrink-0">
                   <div className="overflow-hidden rounded-sm shadow-2xl group">
                     <Image
                       src={c.img}
