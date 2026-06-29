@@ -168,6 +168,14 @@ model EntrepreneurSemaine {
   @@map("entrepreneur_semaine")
 }
 
+model Don {
+  id           String   @id @default(cuid())
+  montant      Int      // en centimes
+  dateCreation DateTime @default(now())
+
+  @@map("dons")
+}
+
 model PipelineLog {
   id          String   @id @default(cuid())
   type        String   // collect | generate | error

@@ -78,6 +78,11 @@ function FormulaireCheckout({ montant, onRetour, onSucces }: {
       setError(confirmError.message ?? "Paiement refusé");
       setLoading(false);
     } else {
+      await fetch("/api/don/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: Math.round(montant * 100) }),
+      }).catch(() => {});
       onSucces();
     }
   };
@@ -158,6 +163,7 @@ export default function DonForm() {
 
   return (
     <div className="space-y-5">
+      {/* Presets */}
       <div className="grid grid-cols-4 gap-3">
         {MONTANTS.map((m) => (
           <button
@@ -174,16 +180,24 @@ export default function DonForm() {
         ))}
       </div>
 
-      <div className="flex items-center gap-3">
-        <input
-          type="number"
-          min={1}
-          placeholder="Autre montant"
-          value={montantLibre}
-          onChange={(e) => setMontantLibre(e.target.value)}
-          className="flex-1 bg-transparent border-b-2 border-white/20 text-white py-2 px-1 text-[15px] outline-none focus:border-[#CC0000] placeholder:text-white/30 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-        />
-        <span className="text-white/40 text-[15px]">€</span>
+      {/* Champ montant libre — bien visible */}
+      <div className="relative">
+        <label className="block text-[11px] font-black tracking-[0.15em] uppercase text-white/50 mb-2">
+          Autre montant (min. 1€)
+        </label>
+        <div className={`flex items-center border-2 transition-colors ${
+          montantLibre ? "border-[#CC0000]" : "border-white/30"
+        }`}>
+          <input
+            type="number"
+            min={1}
+            placeholder="Ex : 3, 7, 15…"
+            value={montantLibre}
+            onChange={(e) => setMontantLibre(e.target.value)}
+            className="flex-1 bg-transparent text-white py-3 px-4 text-[16px] font-bold outline-none placeholder:text-white/25 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          <span className="pr-4 text-white/60 text-[16px] font-bold">€</span>
+        </div>
       </div>
 
       <button
