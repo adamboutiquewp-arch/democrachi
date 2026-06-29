@@ -1,10 +1,14 @@
-const CACHE = "democrachi-v1";
+const CACHE = "democrachi-v2";
 const OFFLINE_URL = "/";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) =>
-      cache.addAll([OFFLINE_URL, "/actu", "/sport", "/politique", "/createurs"])
+      Promise.allSettled(
+        [OFFLINE_URL, "/actu", "/sport", "/politique", "/entrepreneurs"].map(
+          (url) => cache.add(url)
+        )
+      )
     )
   );
   self.skipWaiting();
@@ -27,10 +31,14 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((res) => {
-        const clone = res.clone();
-        caches.open(CACHE).then((cache) => cache.put(event.request, clone));
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, clone));
+        }
         return res;
       })
-      .catch(() => caches.match(event.request).then((r) => r || caches.match(OFFLINE_URL)))
+      .catch(() =>
+        caches.match(event.request).then((r) => r || caches.match(OFFLINE_URL))
+      )
   );
 });
