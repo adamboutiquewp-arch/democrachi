@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import SearchModal from "./SearchModal";
 const NAV_ITEMS = [
   { label: "Accueil",           href: "/" },
   { label: "Derniers articles", href: "/actu" },
+  { label: "Notre Combat",      href: "/notre-combat" },
   { label: "À propos",          href: "/a-propos" },
   { label: "Contact",           href: "/contact" },
 ];
@@ -93,7 +94,7 @@ export default function Header({ socialLinks = [] }: { socialLinks?: SocialLink[
                 <SearchIcon size={18} />
               </button>
               <Link
-                href="/soutenir"
+                href="/newsletter"
                 className="hidden md:inline-flex items-center px-4 py-2 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
               >
                 Soutenir la liberté
@@ -173,7 +174,7 @@ export default function Header({ socialLinks = [] }: { socialLinks?: SocialLink[
                 </div>
               )}
               <Link
-                href="/soutenir"
+                href="/newsletter"
                 className="block text-center py-3 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
               >
                 Soutenir la liberté
