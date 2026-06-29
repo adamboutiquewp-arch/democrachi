@@ -93,7 +93,7 @@ export default function Header({ socialLinks = [] }: { socialLinks?: SocialLink[
                 <SearchIcon size={18} />
               </button>
               <Link
-                href="/newsletter"
+                href="/soutenir"
                 className="hidden md:inline-flex items-center px-4 py-2 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
               >
                 Soutenir la liberté
@@ -173,7 +173,7 @@ export default function Header({ socialLinks = [] }: { socialLinks?: SocialLink[
                 </div>
               )}
               <Link
-                href="/newsletter"
+                href="/soutenir"
                 className="block text-center py-3 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
               >
                 Soutenir la liberté

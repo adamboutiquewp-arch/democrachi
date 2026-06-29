@@ -136,7 +136,7 @@ export default async function HomePage() {
                   Ce média indépendant vit grâce à ses lecteurs. Soutenez, partagez, diffusez la vérité.
                 </p>
                 <Link
-                  href="/newsletter"
+                  href="/soutenir"
                   className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-[#CC0000] text-white text-[11px] font-black tracking-widest uppercase hover:bg-[#a80000] transition-colors"
                 >
                   ♥ Soutenir le combat
