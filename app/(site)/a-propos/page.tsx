@@ -33,8 +33,8 @@ const SECTIONS = [
     reversed: true,
     texte: [
       "Salaires bas. Prix qui montent. Dividendes qui explosent. Le système ne dysfonctionne pas — il fonctionne exactement comme prévu. Pour eux.",
-      "DemoCrachi utilise l'intelligence artificielle pour collecter et synthétiser l'information en temps réel, à partir de sources françaises et internationales vérifiées. Chaque article est généré à partir de faits réels, de sources identifiées, et relu avant publication.",
-      "Un article tous les deux jours — lundi, mercredi, vendredi, dimanche. Pas de flood, pas de bruit : seulement ce qui vaut la peine d'être dit, avec le trait acéré de la caricature quand les mots seuls ne suffisent pas.",
+      "Chaque sujet est choisi parce qu'il dit quelque chose que les grands médias préfèrent taire. On creuse, on recoupe, on vérifie — à partir de sources françaises et internationales. Pas de dépêche recopiée, pas de communiqué officiel mis en page : un regard, un angle, un article.",
+      "Trois fois par semaine — mercredi, vendredi, dimanche. Pas de flood, pas de bruit : seulement ce qui vaut la peine d'être dit, avec le trait acéré de la caricature quand les mots seuls ne suffisent pas.",
     ],
   },
   {
